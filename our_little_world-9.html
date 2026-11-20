@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Little World 💗</title>
+<style>
+:root{--pink:#fff0f5;--lav:#e8dcff;--rose:#ffb6c9;--ink:#765080}
+*{box-sizing:border-box}body{margin:0;font-family:"Trebuchet MS",sans-serif;background:linear-gradient(135deg,var(--pink),#f5edff,#fff8e9);color:var(--ink)}
+header{text-align:center;padding:65px 20px 40px;background:radial-gradient(circle at top,#fff 0%,transparent 65%)}
+h1{font-size:clamp(2.2rem,6vw,4rem);margin:0;color:#c56a98}header p{font-size:1.1rem}
+main{max-width:950px;margin:auto;padding:20px}.card{background:#ffffffd9;border:2px solid #f5d9e8;border-radius:24px;padding:25px;margin:22px 0;box-shadow:0 8px 25px #d9b5d433}
+h2{color:#b45c91}.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;min-height:360px;padding:10px}.photos img{width:100%;height:300px;object-fit:cover;border-radius:16px;box-shadow:0 4px 12px #0001}.photos img{width:100%;height:240px;object-fit:cover;border-radius:16px;box-shadow:0 4px 12px #0001}.placeholder{border:2px dashed #d9b5e8;border-radius:16px;min-height:190px;display:grid;place-items:center;text-align:center;padding:12px}
+input[type=file]{max-width:100%;margin:10px 0}button{background:#d9c5ff;color:#654878;border:0;border-radius:25px;padding:12px 20px;font-weight:bold;cursor:pointer;margin:5px}button:hover{background:#f7b9d2}
+textarea{width:100%;min-height:220px;border:2px solid #f1d5e6;border-radius:16px;padding:16px;font:inherit;line-height:1.6;color:var(--ink);background:#fffafc;resize:vertical}
+.letter{white-space:pre-wrap;line-height:1.7;padding:15px;background:#fff8fc;border-radius:15px;margin-top:15px}
+footer{text-align:center;padding:30px;color:#a56b93}.heart{position:fixed;bottom:-30px;animation:float 8s linear infinite;pointer-events:none;opacity:.45}
+@keyframes float{to{transform:translateY(-110vh) rotate(30deg);opacity:0}}
+</style>
+</head>
+<body>
+<header><h1>Our Little World 💗</h1><p>A tiny scrapbook filled with friendship, letters & memories 🌷</p></header>
+<main>
+<section class="card"><h2>📸 Our Memories</h2><p>Select photos from your device to display in this gallery. Photos are displayed locally in this browser.</p>
+<input id="upload" type="file" accept="image/*" multiple><div class="photos" id="gallery"><div class="placeholder">Your favourite memories<br>will appear here ✨</div></div><p>💗 Add as many photos as you like. The gallery has bigger cards and more room.</p></section>
+<section class="card"><h2>💌 A Letter for My Best Friend</h2><p>Write your letter below. You can save it in this browser or copy it to share.</p>
+<textarea id="letterText" placeholder="Dear best friend...&#10;&#10;I just wanted to tell you..."></textarea><button onclick="saveLetter()">Save letter 💗</button><button onclick="copyLetter()">Copy letter ✨</button><p id="status"></p></section>
+<section class="card"><h2>🌸 Little Friendship Reminder</h2><p>Some memories become little treasures. Keep filling this page with the moments that make you smile. 💞</p></section>
+
+
+
+<section class="card" id="music"><h2>🎶 Our Music Corner</h2><p>Little songs for our little world 💗 Tap a song to find and play it on YouTube.</p>
+<div style="display:grid;gap:12px">
+<div class="letter"><strong>🌸 Ey Pilla — Love Story</strong><br><a href="https://www.youtube.com/results?search_query=Ey+Pilla+Love+Story+movie+song" target="_blank" rel="noopener"><button>Play song 🎧</button></a></div>
+<div class="letter"><strong>💞 Tera Bina — Hindi song</strong><br><a href="https://www.youtube.com/results?search_query=Tera+Bina+Hindi+song" target="_blank" rel="noopener"><button>Play song 🎧</button></a></div>
+<div class="letter"><strong>✨ Untaleu Untale song</strong><br><a href="https://www.youtube.com/results?search_query=Untaleu+Untale+song" target="_blank" rel="noopener"><button>Play song 🎧</button></a></div>
+</div></section>
+<section class="card"><h2>🫙 Our Memory Jar</h2><p>Pick a little prompt and remember a moment together—or add a new memory!</p><button onclick="memoryPrompt()">Pick a memory prompt ✨</button><div class="letter" id="memoryPrompt" style="text-align:center">A memory prompt will appear here 🌸</div></section>
+<section class="card"><h2>🎀 Friendship Mood</h2><p>Choose a mood for today:</p><button onclick="mood('😂')">Silly</button><button onclick="mood('🥹')">Soft</button><button onclick="mood('🌈')">Adventure</button><button onclick="mood('😴')">Chill</button><div class="letter" id="moodResult" style="text-align:center">Pick your friendship mood 💗</div></section>
+<section class="card" id="surprise"><h2>🎁 Tiny Friendship Surprise</h2><p>Tap the button whenever you need a little smile!</p><button onclick="surpriseMessage()">Open a tiny surprise 💌</button><div class="letter" id="surpriseMsg" style="text-align:center;min-height:60px">You are not just my best friend, you are one of the most beautiful parts of my life. Some memories are impossible to explain in words, but I\u2019m so glad I get to make them with you. No matter how busy life gets, I hope we never stop laughing, sharing secrets, and creating little moments together. 💗</div></section>
+</main><footer>Made with love & lots of pink 💕</footer>
+<script>
+const upload=document.getElementById('upload'), gallery=document.getElementById('gallery');
+upload.addEventListener('change',()=>{gallery.innerHTML='';for(const file of upload.files){if(!file.type.startsWith('image/'))continue;const img=document.createElement('img');img.alt='Friendship memory';img.src=URL.createObjectURL(file);gallery.appendChild(img)}if(!gallery.children.length)gallery.innerHTML='<div class="placeholder">Choose some photos 💗</div>'});
+const letter=document.getElementById('letterText');letter.value=localStorage.getItem('friendLetter')||'';
+function saveLetter(){localStorage.setItem('friendLetter',letter.value);document.getElementById('status').textContent='Your letter is saved on this browser 💗'}
+function copyLetter(){letter.select();document.execCommand('copy');document.getElementById('status').textContent='Letter copied! Paste it wherever you want ✨'}
+
+function memoryPrompt(){const prompts=['What is a moment when we laughed until we could not stop? 😂','What is a song that reminds us of each other? 🎵','What new adventure should we try someday? 🌈','What is one silly inside joke we still remember? 🤭','What is a small moment together that made you happy? 💗','What photo deserves a place in this scrapbook next? 📸'];document.getElementById('memoryPrompt').textContent=prompts[Math.floor(Math.random()*prompts.length)];}
+function mood(emoji){const messages={'😂':'Today calls for silly jokes and goofy memories!','🥹':'Today is for appreciating the little things. 💗','🌈':'Dream up a new adventure to add to this scrapbook!','😴':'A calm day, comfy vibes, and friendship. 🌷'};document.getElementById('moodResult').textContent=emoji+' '+messages[emoji];}
+function surpriseMessage(){const notes=['You make ordinary days feel special. 🌷','Friendship is one of life’s sweetest little treasures. 💗','Here is a reminder: you deserve good days and kind people. ✨','A tiny virtual hug of encouragement—keep shining! 🌸','Best memories are often made in the simplest moments. 💞','This scrapbook is proof that little moments can mean a lot. 📸'];document.getElementById('surpriseMsg').textContent=notes[Math.floor(Math.random()*notes.length)];}
+for(let i=0;i<12;i++){let h=document.createElement('span');h.className='heart';h.textContent=['💗','💕','🌸','✨'][i%4];h.style.left=Math.random()*100+'%';h.style.animationDelay=Math.random()*8+'s';h.style.fontSize=(16+Math.random()*18)+'px';document.body.appendChild(h)}
+</script></body></html>
